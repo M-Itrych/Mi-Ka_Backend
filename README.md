@@ -54,3 +54,7 @@ The API will be running by default at `http://localhost:5000`
 - **Method**: `GET`
 - **Description**: Retrieve a specific offer item by its ID from the MongoDB `offers` collection.
 - **Response**: JSON object representing the offer item content.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
