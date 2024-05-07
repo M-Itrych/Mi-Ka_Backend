@@ -1,5 +1,5 @@
-from flask import Blueprint, jsonify, request
-from utils import connect_to_mongodb, close_mongodb_connection, serialize_id
+from flask import Blueprint, jsonify
+from src.utils import connect_to_mongodb, close_mongodb_connection, serialize_id
 from bson.objectid import ObjectId
 
 offers_bp = Blueprint('offers', __name__)

@@ -1,7 +1,7 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from flask_cors import CORS
-from routes.offers import offers_bp
-from routes.news import news_bp
+from src.routes.offers import offers_bp
+from src.routes.news import news_bp
 
 app = Flask(__name__)
 CORS(app)
