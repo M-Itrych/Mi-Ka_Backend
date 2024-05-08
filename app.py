@@ -5,17 +5,27 @@ from src.routes.dashboard import dashboard_bp
 from src.routes.offers import offers_bp
 from src.routes.news import news_bp
 
-app = Flask(__name__)
-CORS(app)
 
-with open('config.json', 'r') as f:
-    config = json.load(f)
+def create_app():
+    app = Flask(__name__)
+    CORS(app)
+    configure_app(app)
+    register_blueprints(app)
+    return app
 
 
+def configure_app(app):
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    app.config.update(config)
 
-app.register_blueprint(offers_bp)
-app.register_blueprint(news_bp)
-app.register_blueprint(dashboard_bp)
+
+def register_blueprints(app):
+    app.register_blueprint(offers_bp)
+    app.register_blueprint(news_bp)
+    app.register_blueprint(dashboard_bp)
+
 
 if __name__ == "__main__":
-    app.run(host=config['host'], port=config['port'], debug=config['debug'])
+    app = create_app()
+    app.run()
