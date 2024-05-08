@@ -8,11 +8,12 @@ offers_bp = Blueprint('offers', __name__)
 @offers_bp.route('/api/offers', methods=['GET'])
 def get_offers():
     try:
-        with connect_to_mongodb() as (client, db):
-            offers = db.offers
-            data = list(offers.find({}, {'contents': 0}))
-            data = serialize_id(data)
-            return jsonify(data), 200
+        client, db = connect_to_mongodb()
+        offers = db.offers
+        data = list(offers.find({}, {'contents': 0}))
+        close_mongodb_connection(client)
+        data = serialize_id(data)
+        return jsonify(data), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
@@ -20,12 +21,13 @@ def get_offers():
 @offers_bp.route('/api/offers/<string:id>', methods=['GET'])
 def get_offer(id):
     try:
-        with connect_to_mongodb() as (client, db):
-            offers = db.offers
-            data = offers.find_one({'_id': ObjectId(id)})
-            if data:
-                return jsonify(data.get('contents')), 200
-            else:
-                return jsonify({'error': 'Document not found'}), 404
+        client, db = connect_to_mongodb()
+        offers = db.offers
+        data = offers.find_one({'_id': ObjectId(id)})
+        close_mongodb_connection(client)
+        if data:
+            return jsonify(data.get('contents')), 200
+        else:
+            return jsonify({'error': 'Document not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
