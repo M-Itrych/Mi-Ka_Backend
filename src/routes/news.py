@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 
 news_bp = Blueprint('news', __name__)
 
+
 @news_bp.route('/api/news', methods=['GET'])
 def get_news():
     try:
@@ -25,6 +26,7 @@ def get_news():
         return jsonify(data), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 @news_bp.route('/api/news/<string:id>', methods=['GET'])
 def get_news_one(id):
