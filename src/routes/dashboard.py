@@ -17,10 +17,7 @@ def authenticate():
         close_mongodb_connection(client)
 
         if auth_user:
-            if request.path == '/api/login':
-                return jsonify({'message': 'Login successful'}), 200
-            elif request.path == '/api/private':
-                return jsonify({'message': 'Private access granted'}), 200
+            return jsonify({'message': 'Private access granted'}), 200
         else:
             return jsonify({'error': 'Authentication failed'}), 401
     except Exception as e:
