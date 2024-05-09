@@ -17,10 +17,7 @@ def get_news():
             query['limit'] = int(i)
         elif page:
             query['skip'] = int(page) * 9
-            query['limit'] = 9
-        else:
-            query['limit'] = 9
-        data = list(news.find({}, {'text': 0}).skip(query.get('skip', 0)).limit(query['limit']))
+        data = list(news.find({}, {'text': 0}).skip(query.get('skip', 0)).limit(query.get('limit', 9)))
         close_mongodb_connection(client)
         data = serialize_id(data)
         return jsonify(data), 200
