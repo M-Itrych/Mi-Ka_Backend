@@ -1,5 +1,7 @@
 import datetime
 import locale
+import re
+
 import validators
 
 from pymongo import MongoClient
@@ -57,3 +59,12 @@ def validate_news(data):
         return False, "Treść nie może być pusta."
 
     return True, ""
+
+
+def validate_email(email):
+    email_regex = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    return re.match(email_regex, email)
+
+def validate_phone(phone):
+    phone_regex = r'^\d{9}$'
+    return re.match(phone_regex, phone)

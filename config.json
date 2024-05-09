@@ -1,5 +1,14 @@
 {
-  "DEBUG": true,
-  "HOST": "127.0.0.1",
-  "PORT": 5000
+  "FLASK": {
+    "DEBUG": true,
+    "HOST": "127.0.0.1",
+    "PORT": 5000
+  },
+  "SMTP": {
+    "URL": "smtp.example.com",
+    "PORT": "587",
+    "USER": "username",
+    "PASS": "password",
+    "EMAIL": "email@example.com"
+  }
 }

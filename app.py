@@ -4,6 +4,7 @@ import json
 from src.routes.dashboard import dashboard_bp
 from src.routes.offers import offers_bp
 from src.routes.news import news_bp
+from src.routes.form import form_bp
 
 
 def create_app():
@@ -16,7 +17,7 @@ def create_app():
 
 def configure_app(app):
     with open('config.json', 'r') as f:
-        config = json.load(f)
+        config = json.load(f).get("FLASK", {})
     app.config.update(config)
 
 
@@ -24,6 +25,7 @@ def register_blueprints(app):
     app.register_blueprint(offers_bp)
     app.register_blueprint(news_bp)
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(form_bp)
 
 
 if __name__ == "__main__":
