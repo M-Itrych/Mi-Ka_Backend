@@ -2,6 +2,9 @@
 
 This repository contains a Flask API that serves as a backend service for interacting with MongoDB. It provides various routes for performing CRUD operations on MongoDB collections.
 
+## React App for this project
+https://github.com/M-Itrych/Mi-Ka_Frontend
+
 ## Setup
 
 1. Clone the repository:
