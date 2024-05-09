@@ -83,6 +83,14 @@ The API will be running by default at `http://localhost:5000`
     - `500`: Internal Server Error.
 
 
+### 7. Send Email from Form
+
+- **Endpoint**: `/api/send/email`
+- **HTTP Method**: `POST`
+- **Description**: This endpoint validates and sends an email to a configured email address specified in `config.json`.
+- **Response**: Upon successful execution, the endpoint returns a JSON object with a status code indicating success. In case of an error, it returns a JSON object containing an error message and corresponding status code.
+
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
