@@ -57,7 +57,7 @@ The API will be running by default at `http://localhost:5000`
 
 ### 5. Login to dashboard
 
-- **URL**: `/api/login`
+- **URL**: `/api/authenticate`
 - **Method**: `POST`
 - **Description**: Verifies if the provided `authKey` exists in the MongoDB `users` collection and returns the appropriate status.
 - **Response**: JSON object containing an error message and additional status code to indicate the user's permission to access the page.
@@ -67,7 +67,17 @@ The API will be running by default at `http://localhost:5000`
         - `401`: Access denied.
         - `500`: Internal Server Error.
 
-If any issue occurs during the process, the response will be reformatted to convey the error message effectively.
+### 6. Add news to database
+
+- **URL**: `/api/add/news`
+- **Method**: `POST`
+- **Description**: Validates the provided authentication key `authKey` against entries in the MongoDB `users` collection. If the key matches an entry with a `superadmin` or `admin` role, it proceeds with validating and adding news data. Otherwise, it returns an authentication failure error message.
+- **Response**: JSON object containing an error message and status code.
+    - **Status Codes**:
+    - `200`: Operation Successful.
+    - `400`: Validation not passed.
+    - `401`: Access denied.
+    - `500`: Internal Server Error.
 
 
 ## License

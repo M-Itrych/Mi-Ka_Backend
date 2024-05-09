@@ -20,7 +20,7 @@ def get_news():
             query['limit'] = 9
         else:
             query['limit'] = 9
-        data = list(news.find().skip(query.get('skip', 0)).limit(query['limit']))
+        data = list(news.find({}, {'text': 0}).skip(query.get('skip', 0)).limit(query['limit']))
         close_mongodb_connection(client)
         data = serialize_id(data)
         return jsonify(data), 200
@@ -35,8 +35,9 @@ def get_news_one(id):
         news = db.news
         data = news.find_one({'_id': ObjectId(id)})
         close_mongodb_connection(client)
+        data = serialize_id(data)
         if data:
-            return jsonify(data.get('content')), 200
+            return jsonify(data), 200
         else:
             return jsonify({'error': 'Document not found'}), 404
     except Exception as e:
