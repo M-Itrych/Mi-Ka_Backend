@@ -82,7 +82,7 @@ def delete_news():
         return jsonify({'message': 'News deleted successfully'}), 200
 
     except Exception as e:
-        return jsonify({'error': 'Internal Server Error'}), 500
+        return jsonify({'error': str(e)}), 500
 
 
 @dashboard_bp.route('/api/update/news', methods=['POST'])
