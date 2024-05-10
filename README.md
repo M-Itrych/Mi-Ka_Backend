@@ -77,7 +77,7 @@ The API will be running by default at `http://localhost:5000`
 
 #### 2. Get Offer by ID
 
-- **URL**: `/api/offers/<id>`
+- **URL**: `/api/offers/<string:id>`
 - **Method**: `GET`
 - **Description**: Retrieve a single offer from the database based on its unique identifier `id`.
 - **Path Parameter**:
