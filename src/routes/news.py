@@ -39,3 +39,14 @@ def get_news_one(id):
             return jsonify({'error': 'Document not found'}), 404
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@news_bp.route('/api/news_count', methods=['GET'])
+def get_news_count():
+    try:
+        client, db = connect_to_mongodb()
+        news = db.news
+        count = news.count_documents({})
+        return jsonify({'count': count}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
