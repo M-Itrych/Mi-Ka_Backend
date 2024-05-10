@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 import json
+from werkzeug.middleware.proxy_fix import ProxyFix
 from src.routes.dashboard import dashboard_bp
 from src.routes.offers import offers_bp
 from src.routes.news import news_bp
@@ -17,8 +18,15 @@ def create_app():
 
 def configure_app(app):
     with open('config.json', 'r') as f:
-        config = json.load(f).get("FLASK", {})
-    app.config.update(config)
+        config = json.load(f)
+        flask = config.get("FLASK", {})
+        env = config.get("ENV", "dev")
+
+    if env == "prod":
+        app.wsgi_app = ProxyFix(
+            app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+        )
+    app.config.update(flask)
 
 
 def register_blueprints(app):

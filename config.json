@@ -1,4 +1,5 @@
 {
+  "ENV": "dev",
   "FLASK": {
     "DEBUG": true,
     "HOST": "127.0.0.1",
