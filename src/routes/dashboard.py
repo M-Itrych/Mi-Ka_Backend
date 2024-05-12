@@ -1,6 +1,7 @@
 from bson import ObjectId
 from flask import Blueprint, jsonify, request
 from src.utils import connect_to_mongodb, close_mongodb_connection, get_date_string, validate_news
+import bcrypt
 
 dashboard_bp = Blueprint('dashboard_bp', __name__)
 
@@ -11,17 +12,21 @@ def authenticate():
         auth_key = request.authorization
         if not auth_key:
             return jsonify({'error': 'Authentication credentials not provided'}), 401
-
+        auth_key_login = auth_key.username
+        auth_key_pass = auth_key.password
         client, db = connect_to_mongodb()
         users = db.users
-        auth_user = users.find_one({'authKey': str(auth_key)})
+        auth_user = users.find_one({'username': str(auth_key_login)})
         close_mongodb_connection(client)
+        if not bcrypt.checkpw(bytes(auth_key_pass, encoding='utf8'), bytes(auth_user['password'], encoding='utf8')):
+            return jsonify({'error': 'Authentication failed'}), 401
 
         if auth_user:
             return jsonify({'message': 'Private access granted'}), 200
         else:
             return jsonify({'error': 'Authentication failed'}), 401
     except Exception as e:
+        print(e)
         return jsonify({'error': 'Internal Server Error'}), 500
 
 
